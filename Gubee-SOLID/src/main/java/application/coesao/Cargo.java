@@ -1,8 +1,8 @@
 package application.coesao;
 
-import application.coesao.coeso.DezOuVintePorCento;
-import application.coesao.coeso.QuinzeOuVinteCincoPorCento;
-import application.coesao.coeso.RegraDeCalculo;
+import application.coesao.srp.DezOuVintePorCento;
+import application.coesao.srp.QuinzeOuVinteCincoPorCento;
+import application.coesao.srp.RegraDeCalculo;
 
 public enum Cargo {
 

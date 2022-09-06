@@ -1,4 +1,4 @@
-package application.coesao.coeso;
+package application.coesao.srp;
 
 import application.coesao.Funcionario;
 
