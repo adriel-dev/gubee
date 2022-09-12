@@ -2,6 +2,7 @@ package com.adriel.hexagonalexample.user.adapter.in.web;
 
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUser;
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUserCommand;
+import com.adriel.hexagonalexample.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +18,9 @@ public class RegisterUserController {
     private final RegisterUser registerUserService;
 
     @PostMapping
-    public ResponseEntity<Void> registerUser(@RequestBody RegisterUserCommand userCommand){
-        registerUserService.registerUser(userCommand);
-        return null;
+    public ResponseEntity<User> registerUser(@RequestBody RegisterUserCommand userCommand){
+        User savedUser = registerUserService.registerUser(userCommand);
+        return ResponseEntity.ok().body(savedUser);
     }
 
 }
