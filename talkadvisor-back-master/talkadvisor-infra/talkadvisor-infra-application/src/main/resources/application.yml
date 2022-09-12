@@ -1,0 +1,14 @@
+spring:
+  output:
+    ansi.enabled: always
+
+server:
+  port: 7777
+
+talks:
+  max-number: 25
+
+youtube:
+  api:
+    base-uri: "https://www.googleapis.com/youtube/v3/"
+    key: ${GOOGLE_API_KEY:"API_KEY"}

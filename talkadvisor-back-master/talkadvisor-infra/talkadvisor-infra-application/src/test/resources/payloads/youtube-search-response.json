@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "xZOO_CksS-E"
+      },
+      "snippet": {
+        "title": "Hexagonal at Scale, with DDD and microservices! (Cyrille Martraire)",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xZOO_CksS-E/default.jpg"
+          }
+        }
+      }
+    },
+    {
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "2vEoL3Irgiw"
+      },
+      "snippet": {
+        "title": "Improving your Test Driven Development in 45 minutes - Jakub Nabrdalik",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2vEoL3Irgiw/default.jpg"
+          }
+        }
+      }
+    }
+  ]
+}
