@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RegisterUserController {
 
-    private final RegisterUser registerUserService;
+    private final RegisterUser registerUser;
 
     @PostMapping
     public ResponseEntity<User> registerUser(@RequestBody RegisterUserCommand userCommand){
-        User savedUser = registerUserService.registerUser(userCommand);
+        User savedUser = registerUser.registerUser(userCommand);
         return ResponseEntity.ok().body(savedUser);
     }
 
