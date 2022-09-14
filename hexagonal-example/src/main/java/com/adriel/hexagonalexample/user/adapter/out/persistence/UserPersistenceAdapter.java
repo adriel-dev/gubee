@@ -1,11 +1,10 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
+import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserNotFoundException;
 import com.adriel.hexagonalexample.user.application.port.in.*;
 import com.adriel.hexagonalexample.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.NoSuchElementException;
 
 @Component
 @RequiredArgsConstructor
