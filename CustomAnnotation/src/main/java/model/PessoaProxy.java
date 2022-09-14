@@ -31,6 +31,7 @@ public class PessoaProxy implements Pessoa {
                     status = "erro";
                 }
                 System.out.printf("Finalizando execução do método %s com %s\n", metodoSalva.getName(), status);
+                return true;
             }
         }
         return false;
