@@ -9,7 +9,11 @@ import java.util.List;
 
 public class PessoaProxy implements Pessoa {
 
-    private final PessoaImp pessoalReal = new PessoaImp("Adriel", "Felix", 22);
+    private final PessoaImp pessoalReal;
+
+    public PessoaProxy(PessoaImp pessoalReal) {
+        this.pessoalReal = pessoalReal;
+    }
 
     @Override
     public boolean salvaNoBanco() {
