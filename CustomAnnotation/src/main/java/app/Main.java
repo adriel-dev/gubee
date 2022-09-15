@@ -1,7 +1,7 @@
 package app;
 
 import model.Pessoa;
-import model.PessoaDynamicProxy;
+import model.PessoaInvocationHandler;
 import model.PessoaImp;
 import model.PessoaProxy;
 
@@ -16,12 +16,14 @@ public class Main {
         System.out.println("------- EXECUTANDO COM REFLECTION -------");
         PessoaProxy pessoaProxy = new PessoaProxy(pessoa);
         var result = pessoaProxy.salvaNoBanco();
+        System.out.println(result);
         System.out.println("-----------------------------------------");
         System.out.println("------- EXECUTANDO COM DYNAMIC PROXY -------");
         Pessoa pessoaDynamicProxy = (Pessoa) Proxy.newProxyInstance(Main.class.getClassLoader(),
                 new Class[]{Pessoa.class},
-                new PessoaDynamicProxy(pessoa));
-        pessoaDynamicProxy.salvaNoBanco();
+                new PessoaInvocationHandler(pessoa));
+        var secondResult = pessoaDynamicProxy.salvaNoBanco();
+        System.out.println(secondResult);
         System.out.println("--------------------------------------------");
     }
 
