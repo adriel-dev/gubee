@@ -1,4 +1,4 @@
-package model;
+package model.pessoa;
 
 import annotation.Transactional;
 
@@ -29,10 +29,25 @@ public class PessoaImp implements Pessoa {
         return idade;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
     @Override
     @Transactional
     public boolean salvaNoBanco() {
         System.out.println("------> Registro salvo! <------");
+        System.out.printf("Nome: %s\n", nome);
+        System.out.printf("Sobrenome: %s\n", sobrenome);
+        System.out.printf("Idade: %d\n", idade);
         return true;
     }
 

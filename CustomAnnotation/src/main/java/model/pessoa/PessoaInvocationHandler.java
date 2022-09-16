@@ -1,4 +1,4 @@
-package model;
+package model.pessoa;
 
 import annotation.Transactional;
 import exception.AnnotationNotPresent;

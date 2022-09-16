@@ -1,4 +1,4 @@
-package model;
+package model.pessoa;
 
 import annotation.Transactional;
 import exception.AnnotationNotPresent;
@@ -6,9 +6,6 @@ import exception.MethodNotPresent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 public class PessoaProxy implements Pessoa {
 
