@@ -2,16 +2,13 @@ package model.pessoa;
 
 import annotation.Transactional;
 
-public class PessoaImp implements Pessoa {
+public class PessoaImpl implements Pessoa {
 
     private String nome;
     private String sobrenome;
     private int idade;
 
-    public PessoaImp() {
-    }
-
-    public PessoaImp(String nome, String sobrenome, int idade) {
+    public PessoaImpl(String nome, String sobrenome, int idade) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.idade = idade;

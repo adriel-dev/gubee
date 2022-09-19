@@ -1,19 +1,18 @@
-package model.pessoa;
+package model.pessoa.proxy;
 
 import annotation.Transactional;
 import exception.AnnotationNotPresent;
 import exception.MethodNotPresent;
+import model.pessoa.Pessoa;
+import model.pessoa.factory.AbstractFactoryEnum;
+import model.pessoa.factory.PessoaFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PessoaProxy implements Pessoa {
+public class PessoaPatternProxy implements Pessoa {
 
-    private final PessoaImp pessoalReal;
-
-    public PessoaProxy(PessoaImp pessoalReal) {
-        this.pessoalReal = pessoalReal;
-    }
+    private final Pessoa pessoalReal = PessoaFactory.getFactory(AbstractFactoryEnum.DEFAULT).criarPessoa();
 
     @Override
     public boolean salvaNoBanco() {
@@ -21,7 +20,7 @@ public class PessoaProxy implements Pessoa {
             Method metodoSalva = pessoalReal.getClass().getMethod("salvaNoBanco");
                 if (metodoSalva.isAnnotationPresent(Transactional.class)) {
                     String status;
-                    System.out.printf("Iniciando execução do método %s\n", metodoSalva.getName());
+                    System.out.printf("(PatternProxy) Iniciando execução do método %s\n", metodoSalva.getName());
                     try {
                         metodoSalva.invoke(pessoalReal);
                         status = "sucesso";
