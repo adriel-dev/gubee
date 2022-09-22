@@ -1,0 +1,23 @@
+<div class="card mt-4 shadow">
+    <div class="card-body">
+        <div class="d-flex flex-row">
+            <div>
+                <h5 class="card-title">{{hero.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{hero.race}}</h6>
+            </div>
+            <i type="button" class="ms-auto align-self-center"><fa-icon [icon]="faEdit"></fa-icon></i>
+            <i type="button" class="ms-3 align-self-center" (click)="collapse.toggle()">
+                <fa-icon *ngIf="isCollapsed" [icon]="faChevronDown"></fa-icon>
+                <fa-icon *ngIf="!isCollapsed" [icon]="faChevronUp"></fa-icon>
+            </i>
+        </div>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center">Strength: <span class="badge ms-auto" [ngClass]="hero.strength <= 5 ? 'bg-danger' : 'bg-primary'">{{hero.strength}}</span></li>
+                <li class="list-group-item d-flex align-items-center">Agility: <span class="badge ms-auto" [ngClass]="hero.agility <= 5 ? 'bg-danger' : 'bg-primary'">{{hero.agility}}</span></li>
+                <li class="list-group-item d-flex align-items-center">Desterity: <span class="badge ms-auto" [ngClass]="hero.dexterity <= 5 ? 'bg-danger' : 'bg-primary'">{{hero.dexterity}}</span></li>
+                <li class="list-group-item d-flex align-items-center">Intelligence: <span class="badge ms-auto" [ngClass]="hero.intelligence <= 5 ? 'bg-danger' : 'bg-primary'">{{hero.intelligence}}</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

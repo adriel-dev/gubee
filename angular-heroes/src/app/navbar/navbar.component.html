@@ -1,0 +1,20 @@
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #4E21A6;">
+    <div class="container-fluid">
+        <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01" [ngbCollapse]="isCollapsed">
+            <span class="navbar-brand">AngularHeroes</span>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/list" routerLinkActive="active"
+                    ariaCurrentWhenActive="page">List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/form" routerLinkActive="active"
+                    ariaCurrentWhenActive="page">Compare</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

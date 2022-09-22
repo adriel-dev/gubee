@@ -1,0 +1,10 @@
+<div class="container">
+    <h3 class="mt-4 text-center">Heroes list</h3>
+    <div class="row">
+        <div class="col-sm-6 col-lg-3" *ngFor="let hero of heroes">
+            <app-list-item
+            [hero]="hero"></app-list-item>
+        </div>
+    </div>
+</div>
+<i id="addBtn" role="link" class="shadow" routerLink="/new"><fa-icon [icon]="faAdd"></fa-icon></i>

@@ -1,0 +1,90 @@
+[
+    {
+        "name": "Batman",
+        "race": "HUMAN",
+        "strength": 7,
+        "agility": 8,
+        "dexterity": 10,
+        "intelligence": 10
+    },
+    {
+        "name": "Ironman",
+        "race": "HUMAN",
+        "strength": 8,
+        "agility": 8,
+        "dexterity": 8,
+        "intelligence": 8
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "ALIEN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    },
+    {
+        "name": "Teste",
+        "race": "HUMAN",
+        "strength": 4,
+        "agility": 9,
+        "dexterity": 2,
+        "intelligence": 10
+    }
+]
