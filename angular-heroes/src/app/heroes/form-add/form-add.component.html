@@ -1,20 +1,25 @@
 <h3 class="my-4 text-center">Add Hero</h3>
 <div class="container">
-    <form #form="ngForm" (ngSubmit)="saveNewHero(form)">
+    <form #form="ngForm" (ngSubmit)="saveNewHero()">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="mb-3">
                     <label for="nameInput" class="form-label">*Name:</label>
-                    <input type="text" name="name" class="form-control" [class.is-invalid]="!name.valid && name.touched"
-                        id="nameInput" #name="ngModel" [(ngModel)]="hero.name" required autocomplete="off">
+                    <input type="text" name="name" class="form-control" [ngClass]="{'is-invalid': !name.valid && name.touched}"
+                        id="nameInput" #name="ngModel" [(ngModel)]="hero.name" required autocomplete="off" placeholder="Hero name">
                     <div class="invalid-feedback">
                         Name is required!
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="raceInput" class="form-label">*Race:</label>
-                    <input type="text" name="race" class="form-control" [class.is-invalid]="!race.valid && race.touched"
-                        id="raceInput" #race="ngModel" [(ngModel)]="hero.race" required autocomplete="off">
+                    <select class="form-select" name="race" #race="ngModel" [(ngModel)]="hero.race" [ngClass]="{'is-invalid': !race.valid && race.touched}" required>
+                        <option value="" selected hidden>Select a race</option>
+                        <option value="HUMAN">Human</option>
+                        <option value="ALIEN">Alien</option>
+                        <option value="DIVINE">Divine</option>
+                        <option value="CYBORG">Cyborg</option>
+                    </select>
                     <div class="invalid-feedback">
                         Race is required!
                     </div>

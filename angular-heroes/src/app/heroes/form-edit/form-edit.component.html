@@ -1,1 +1,66 @@
-<p>form-edit works!</p>
+<h3 class="my-4 text-center">Edit Hero</h3>
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="updateHero()">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">*Name:</label>
+                    <input type="text" name="name" class="form-control" [ngClass]="{'is-invalid': !name.valid && name.touched}"
+                        id="nameInput" #name="ngModel" [(ngModel)]="hero.name" required autocomplete="off" placeholder="Hero name">
+                    <div class="invalid-feedback">
+                        Name is required!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="raceInput" class="form-label">*Race:</label>
+                    <select class="form-select" name="race" #race="ngModel" [(ngModel)]="hero.race" [ngClass]="{'is-invalid': !race.valid && race.touched}" required>
+                        <option value="" selected hidden>Select a race</option>
+                        <option value="HUMAN">Human</option>
+                        <option value="ALIEN">Alien</option>
+                        <option value="DIVINE">Divine</option>
+                        <option value="CYBORG">Cyborg</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Race is required!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-4">
+                <div class="mb-3">
+                    <label for="strengthInput" class="form-label">Strength</label>
+                    <input type="number" name="strength" min="0" max="10" class="form-control" id="strengthInput"
+                        [(ngModel)]="hero.strength">
+                </div>
+                <div class="mb-3">
+                    <label for="agilityInput" class="form-label">Agility</label>
+                    <input type="number" name="agility" min="0" max="10" class="form-control" id="agilityInput"
+                        [(ngModel)]="hero.agility">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="mb-3">
+                    <label for="dexterityInput" class="form-label">Dexterity</label>
+                    <input type="number" name="dexterity" min="0" max="10" class="form-control" id="dexterityInput"
+                        [(ngModel)]="hero.dexterity">
+                </div>
+                <div class="mb-3">
+                    <label for="intelligenceInput" class="form-label">Intelligence</label>
+                    <input type="number" name="intelligence" min="0" max="10" class="form-control"
+                        id="intelligenceInput" [(ngModel)]="hero.intelligence">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex mt-2">
+            <div class="col-lg-6 col-md-8 d-grid">
+                <button type="submit" id="saveHeroBtn" class="btn btn-purple btn-block" [disabled]="!form.valid">Save</button>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex mt-2">
+            <div class="col-lg-6 col-md-8 d-grid">
+                <button type="button" id="deleteHeroBtn" class="btn btn-red btn-block">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>

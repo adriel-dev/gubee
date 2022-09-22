@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HeroesService } from '../heroes.service';
 
 import { Hero } from '../types/Hero';
 
@@ -21,15 +21,15 @@ export class FormAddComponent implements OnInit {
     intelligence: 0
   }
 
-  constructor(private http: HttpClient) { 
+  constructor(private service: HeroesService) { 
     this.valid = false;
    }
 
   ngOnInit(): void {
   }
 
-  saveNewHero(form: any) {
-    console.log(form);
+  saveNewHero() {
+    console.log(this.service.createHero(this.hero).subscribe());
   }
 
 }

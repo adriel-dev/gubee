@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.listAllHeroesJson();
+    this.listAllHeroes();
   }
   
   listAllHeroes() {

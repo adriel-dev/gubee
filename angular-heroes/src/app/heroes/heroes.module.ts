@@ -5,9 +5,7 @@ import { CompareComponent } from './compare/compare.component';
 
 @NgModule({
   declarations: [
-  
-    FormEditComponent,
-       CompareComponent
+    CompareComponent
   ],
   imports: [
     CommonModule

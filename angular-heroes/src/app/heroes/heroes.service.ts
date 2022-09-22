@@ -27,7 +27,7 @@ export class HeroesService {
   }
 
   createHero(hero: Hero) {
-
+    return this.http.post(this.URL, hero);
   }
 
   updateHero(id: string, hero: Hero) {
