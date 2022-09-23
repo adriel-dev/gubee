@@ -1,1 +1,44 @@
-<p>compare works!</p>
+<h3 class="my-4 text-center">Compare Heroes</h3>
+<div class="container">
+
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-4">
+            <form #form="ngForm">
+                <label for="searchHeroInput">Search a hero:</label>
+                <div class="input-group">
+                    <input class="form-control" type="search" id="searchHeroInput" name="search" ngModel
+                        placeholder="Hero name" #search="ngModel" required>
+                    <button type="submit" id="searchBtn" class="input-group-text"
+                        (click)="searchForHero(search.value)" [disabled]="!form.valid || comparationResult != undefined">
+                        <fa-icon [icon]="faSearch"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ms-auto col-lg-1 col-md-2 col-sm-4 d-grid mt-3">
+            <button class="btn btn-red" (click)="clearArray()" [disabled]="heroesToCompare.length == 0">Clear</button>
+        </div>
+        <div class="col-lg-1 col-md-2 col-sm-4 d-grid mt-3">
+            <button class="btn btn-green" (click)="compareHeroes()" [disabled]="heroesToCompare.length < 2 || comparationResult != undefined">Compare</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <app-compare-card *ngIf="heroesToCompare[0]" [hero]="heroesToCompare[0]"></app-compare-card>
+        </div>
+        <span *ngIf="heroesToCompare.length > 0" class="col-lg-2 text-center align-self-center mt-3">TO</span>
+        <div class="col-lg-5">
+            <app-compare-card *ngIf="heroesToCompare[1]" [hero]="heroesToCompare[1]"></app-compare-card>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-4">
+            <app-compare-result *ngIf="comparationResult != undefined" [comparationResult]="comparationResult" [heroes]="heroesToCompare"></app-compare-result>
+        </div>
+    </div>
+</div>

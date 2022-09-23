@@ -14,6 +14,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormAddComponent } from './heroes/form-add/form-add.component';
 import { CompareComponent } from './heroes/compare/compare.component';
 import { FormEditComponent } from './heroes/form-edit/form-edit.component';
+import { CompareCardComponent } from './heroes/compare-card/compare-card.component';
+import { CompareResultComponent } from './heroes/compare-result/compare-result.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { FormEditComponent } from './heroes/form-edit/form-edit.component';
     ListItemComponent,
     NavbarComponent,
     FormAddComponent,
-    FormEditComponent
+    FormEditComponent,
+    CompareComponent,
+    CompareCardComponent,
+    CompareResultComponent
   ],
   imports: [
     BrowserModule,

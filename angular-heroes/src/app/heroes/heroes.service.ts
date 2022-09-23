@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Hero } from './types/Hero';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ComparationResult } from './types/ComparationResult';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,7 @@ export class HeroesService {
 
   compareHeroes(id1: string, id2: string) {
     const urlCompare = `${this.URL}/compare/${id1}/${id2}`;
-    return this.http.get(urlCompare);
+    return this.http.get<ComparationResult>(urlCompare);
   }
 
 }

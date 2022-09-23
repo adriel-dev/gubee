@@ -1,0 +1,19 @@
+<div class="card mt-4 shadow">
+    <div class="card-body">
+        <div class="d-flex flex-row">
+            <div>
+                <h5 class="card-title">{{heroes[0].name}} compared to {{heroes[1].name}}</h5>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">Strength Diff: <span class="badge ms-auto"
+                    [ngClass]="comparationResult.strength_diff < 0 ? 'bg-danger' : 'bg-primary'">{{comparationResult.strength_diff}}</span></li>
+            <li class="list-group-item d-flex align-items-center">Agility Diff: <span class="badge ms-auto"
+                    [ngClass]="comparationResult.agility_diff < 0 ? 'bg-danger' : 'bg-primary'">{{comparationResult.agility_diff}}</span></li>
+            <li class="list-group-item d-flex align-items-center">Desterity Diff: <span class="badge ms-auto"
+                    [ngClass]="comparationResult.dexterity_diff < 0 ? 'bg-danger' : 'bg-primary'">{{comparationResult.dexterity_diff}}</span></li>
+            <li class="list-group-item d-flex align-items-center">Intelligence Diff: <span class="badge ms-auto"
+                    [ngClass]="comparationResult.intelligence_diff < 0 ? 'bg-danger' : 'bg-primary'">{{comparationResult.intelligence_diff}}</span></li>
+        </ul>
+    </div>
+</div>
