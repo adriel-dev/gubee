@@ -13,6 +13,7 @@ export class FormAddComponent implements OnInit {
   valid: boolean;
 
   hero: Hero = {
+    id: "",
     name: "",
     race: "",
     strength: 0,

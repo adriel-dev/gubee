@@ -4,7 +4,6 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
 import { HeroesService } from '../heroes.service';
 import { Hero } from '../types/Hero';
-import heroesData from './data.json';
 
 @Component({
   selector: 'app-list',
@@ -26,10 +25,6 @@ export class ListComponent implements OnInit {
   
   listAllHeroes() {
     this.service.findAllHeroes().subscribe(response => this.heroes = response);
-  }
-
-  listAllHeroesJson () {
-    this.heroes = heroesData;
   }
 
 }

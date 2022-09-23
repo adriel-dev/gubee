@@ -5,7 +5,7 @@
                 <h5 class="card-title">{{hero.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{hero.race}}</h6>
             </div>
-            <i type="button" class="ms-auto align-self-center" routerLink="/edit"><fa-icon [icon]="faEdit"></fa-icon></i>
+            <i type="button" class="ms-auto align-self-center" (click)="navigateToEdit()"><fa-icon [icon]="faEdit"></fa-icon></i>
             <i type="button" class="ms-3 align-self-center" (click)="collapse.toggle()">
                 <fa-icon *ngIf="isCollapsed" [icon]="faChevronDown"></fa-icon>
                 <fa-icon *ngIf="!isCollapsed" [icon]="faChevronUp"></fa-icon>

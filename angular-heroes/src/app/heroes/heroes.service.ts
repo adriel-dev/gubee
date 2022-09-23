@@ -13,33 +13,34 @@ export class HeroesService {
 
   constructor(private http: HttpClient) { }
 
-  findAllHeroes(): Observable<Hero[]> {
+  findAllHeroes() {
     const findAllUrl = `${this.URL}/all`;
     return this.http.get<Hero[]>(findAllUrl);
   }
 
-  findHeroById(id: string) {
-    
-  }
-
-  findHeroByName(name: string) {
-
+  findHeroByName(name: string): Observable<Hero> {
+    const findByNameUrl = `${this.URL}?name=${name}`;
+    return this.http.get<Hero>(findByNameUrl);
   }
 
   createHero(hero: Hero) {
     return this.http.post(this.URL, hero);
   }
 
-  updateHero(id: string, hero: Hero) {
-
+  updateHero(hero: Hero) {
+    const id = hero.id;
+    const urlUpdate = `${this.URL}/${id}`;
+    return this.http.put(urlUpdate, hero);
   }
 
   deleteHeroById(id: string) {
-
+    const urlDelete = `${this.URL}/${id}`;
+    return this.http.delete(urlDelete);
   }
 
   compareHeroes(id1: string, id2: string) {
-
+    const urlCompare = `${this.URL}/compare/${id1}/${id2}`;
+    return this.http.get(urlCompare);
   }
 
 }

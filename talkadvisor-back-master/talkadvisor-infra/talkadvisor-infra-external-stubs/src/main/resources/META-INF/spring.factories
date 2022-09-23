@@ -1,1 +1,0 @@
-org.springframework.context.ApplicationContextInitializer=org.craftsrecords.talkadvisor.infra.externalstubs.ExternalStubsApplicationInitializer
