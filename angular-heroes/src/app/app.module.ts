@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListComponent } from './heroes/list/list.component';
 import { ListItemComponent } from './heroes/list-item/list-item.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -16,6 +16,7 @@ import { CompareComponent } from './heroes/compare/compare.component';
 import { FormEditComponent } from './heroes/form-edit/form-edit.component';
 import { CompareCardComponent } from './heroes/compare-card/compare-card.component';
 import { CompareResultComponent } from './heroes/compare-result/compare-result.component';
+import { AlertComponent } from './shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CompareResultComponent } from './heroes/compare-result/compare-result.c
     FormEditComponent,
     CompareComponent,
     CompareCardComponent,
-    CompareResultComponent
+    CompareResultComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { CompareResultComponent } from './heroes/compare-result/compare-result.c
       {path: '', redirectTo: '/list', pathMatch: 'full'}
     ]),
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    NgbAlertModule
   ],
   providers: [HeroesService],
   bootstrap: [AppComponent]

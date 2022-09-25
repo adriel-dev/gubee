@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { catchError, Observable, of, Subject } from 'rxjs';
 
 import { HeroesService } from '../heroes.service';
 import { Hero } from '../types/Hero';
@@ -14,7 +15,9 @@ export class ListComponent implements OnInit {
 
   faAdd = faAdd;
 
-  heroes: Hero[] = [];
+  heroes$!: Observable<Hero[]>;
+  error$ = new Subject<boolean>();
+  errorMessage: string = '';
 
   constructor(private service: HeroesService) {
   }
@@ -24,7 +27,15 @@ export class ListComponent implements OnInit {
   }
   
   listAllHeroes() {
-    this.service.findAllHeroes().subscribe(response => this.heroes = response);
+    this.heroes$ = this.service.findAllHeroes()
+    .pipe(
+      catchError(error => {
+        console.error(error.message);
+        this.errorMessage = "Error fetching heroes.";
+        this.error$.next(true);
+        return of();
+      })
+    );
   }
 
 }

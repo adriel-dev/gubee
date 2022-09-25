@@ -26,19 +26,21 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-3">
             <app-compare-card *ngIf="heroesToCompare[0]" [hero]="heroesToCompare[0]"></app-compare-card>
         </div>
         <span *ngIf="heroesToCompare.length > 0" class="col-lg-2 text-center align-self-center mt-3">TO</span>
-        <div class="col-lg-5">
+        <div class="col-lg-3">
             <app-compare-card *ngIf="heroesToCompare[1]" [hero]="heroesToCompare[1]"></app-compare-card>
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center mb-5">
         <div class="col-lg-4">
             <app-compare-result *ngIf="comparationResult != undefined" [comparationResult]="comparationResult" [heroes]="heroesToCompare"></app-compare-result>
         </div>
     </div>
+
+    <app-alert [message]="errorMessage" [type]="alertType" class="text-center"></app-alert>
 </div>

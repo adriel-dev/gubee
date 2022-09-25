@@ -1,6 +1,6 @@
 <h3 class="my-4 text-center">Edit Hero</h3>
 <div class="container">
-    <form #form="ngForm" (ngSubmit)="updateHero()">
+    <form class="mb-5" #form="ngForm" (ngSubmit)="updateHero()">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="mb-3">
@@ -54,7 +54,7 @@
         </div>
         <div class="row justify-content-center d-flex mt-2">
             <div class="col-lg-6 col-md-8 d-grid">
-                <button type="submit" id="saveHeroBtn" class="btn btn-purple btn-block" [disabled]="!form.valid">Save</button>
+                <button type="submit" id="saveHeroBtn" class="btn btn-purple btn-block" [disabled]="!form.valid">Update</button>
             </div>
         </div>
         <div class="row justify-content-center d-flex mt-2">
@@ -63,4 +63,6 @@
             </div>
         </div>
     </form>
+
+    <app-alert [message]="alertMessage" [type]="alertType" class="text-center"></app-alert>
 </div>

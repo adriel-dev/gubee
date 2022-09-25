@@ -1,6 +1,6 @@
 <h3 class="my-4 text-center">Add Hero</h3>
 <div class="container">
-    <form #form="ngForm" (ngSubmit)="saveNewHero()">
+    <form class="mb-5" #form="ngForm" (ngSubmit)="saveNewHero()">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="mb-3">
@@ -58,4 +58,6 @@
             </div>
         </div>
     </form>
+    
+    <app-alert [message]="alertMessage" [type]="alertType" class="text-center"></app-alert>
 </div>

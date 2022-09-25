@@ -1,10 +1,22 @@
 <div class="container">
     <h3 class="mt-4 text-center">Heroes list</h3>
-    <div class="row">
+    <div class="row" *ngIf="heroes$ | async as heroes; else loadingError">
         <div class="col-sm-6 col-lg-3" *ngFor="let hero of heroes">
             <app-list-item
             [hero]="hero"></app-list-item>
         </div>
     </div>
 </div>
+<ng-template #loadingError>
+    <div *ngIf="error$ | async; else loading" class="text-center text-danger mt-5">
+        <app-alert [message]="errorMessage" type="danger"></app-alert>
+    </div>
+    <ng-template #loading>
+        <div class="d-flex justify-content-center align-items-center mt-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </ng-template>
+</ng-template>
 <i id="addBtn" role="link" class="shadow" routerLink="/new"><fa-icon [icon]="faAdd"></fa-icon></i>

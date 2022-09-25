@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 import { HeroesService } from '../heroes.service';
 import { Hero } from '../types/Hero';
 
@@ -9,6 +11,11 @@ import { Hero } from '../types/Hero';
   styleUrls: ['./form-edit.component.css']
 })
 export class FormEditComponent implements OnInit {
+
+  alertMessage: string = '';
+  alertType: string = 'success';
+
+  @ViewChild("form") myForm!: NgForm;
 
   hero: Hero = {
     id: "",
@@ -34,13 +41,46 @@ export class FormEditComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   updateHero() {
-    this.service.updateHero(this.hero).subscribe(res => console.log(res));
+    this.service.updateHero(this.hero).pipe(
+      catchError(error => {
+        console.error(error.message);
+        this.alertType = "danger";
+        this.alertMessage = "Error updating hero.";
+        setTimeout(() => {
+          this.alertMessage = "";
+        }, 5000);
+        return of();
+      }))
+      .subscribe(res => {
+        this.alertType = "success";
+        this.alertMessage = "Hero updated successfully.";
+        setTimeout(() => {
+          this.alertMessage = "";
+        }, 5000);
+      });
   }
 
   deleteHero() {
-    this.service.deleteHeroById(this.hero.id).subscribe(res => console.log(res));
+    this.service.deleteHeroById(this.hero.id).pipe(
+      catchError(error => {
+        console.error(error.message);
+        this.alertType = "danger";
+        this.alertMessage = "Error deleting hero.";
+        setTimeout(() => {
+          this.alertMessage = "";
+        }, 5000);
+        return of();
+      }))
+      .subscribe(res => {
+        this.alertType = "success";
+        this.alertMessage = "Hero deleted successfully. Redirecting...";
+        setTimeout(() => {
+          this.alertMessage = "";
+          this.router.navigateByUrl("/");
+        }, 3000);
+      });
   }
 
 }
