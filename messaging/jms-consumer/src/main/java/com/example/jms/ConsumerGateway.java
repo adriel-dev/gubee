@@ -31,6 +31,8 @@ public class ConsumerGateway implements Gateway, Runnable {
     private List<UserMessageCommand> users = new ArrayList<>();
     private UserMessageCommand lastUser;
 
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public List<UserMessageCommand> getMessagesList() {
         return users;
@@ -47,7 +49,7 @@ public class ConsumerGateway implements Gateway, Runnable {
             while (true) {
                 Message message = consumer.receive();
                 if (message == null) return;
-                UserMessageCommand messageUser = new ObjectMapper()
+                UserMessageCommand messageUser = mapper
                         .readValue(message.getBody(String.class), UserMessageCommand.class);
                 users.add(messageUser);
                 lastUser = messageUser;
