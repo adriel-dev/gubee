@@ -11,12 +11,12 @@ import javax.inject.Inject;
 public class UserMessagingAdapter implements RegisterUser {
 
     @Inject
-    private Gateway gateway;
+    Gateway gateway;
 
     @Override
     public void registerUser(User user) {
         user.save();
-        gateway.sendMessage(user.getId());
+        gateway.sendMessage(user);
     }
 
 }

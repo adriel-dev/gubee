@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 public class UserController {
 
     @Inject
-    private RegisterUser registerUser;
+    RegisterUser registerUser;
 
     @POST
     @Path("/save")

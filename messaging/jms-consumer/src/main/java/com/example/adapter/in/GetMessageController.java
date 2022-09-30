@@ -1,11 +1,12 @@
 package com.example.adapter.in;
 
-import com.example.jms.Gateway;
 import com.example.port.in.GetMessage;
+import com.example.port.in.UserMessageCommand;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/message")
 public class GetMessageController {
@@ -14,10 +15,10 @@ public class GetMessageController {
     GetMessage getMessage;
 
     @GET
-    @Path("/last")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getLastMessage() {
-        return getMessage.getLastMessage();
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserMessageCommand> getLastMessage() {
+        return getMessage.getMessages();
     }
 
 }

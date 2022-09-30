@@ -1,8 +1,8 @@
 package com.example.user.domain;
 
-import java.io.Serializable;
+import com.example.user.port.out.UserMessageCommand;
 
-public class User implements Serializable {
+public class User {
 
     private Integer id;
     private String username;
@@ -35,4 +35,9 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public UserMessageCommand toCommand() {
+        return new UserMessageCommand(this.getId(), this.getUsername(), this.getPassword());
+    }
+
 }

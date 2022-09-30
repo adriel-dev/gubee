@@ -1,7 +1,11 @@
 package com.example.jms;
 
+import com.example.port.in.UserMessageCommand;
+
+import java.util.List;
+
 public interface Gateway {
 
-    public String getLastMessage();
+    public List<UserMessageCommand> getMessages();
 
 }
