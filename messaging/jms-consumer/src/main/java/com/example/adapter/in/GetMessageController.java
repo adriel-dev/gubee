@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/message")
+@Path("/messages")
 public class GetMessageController {
 
     @Inject
@@ -17,8 +17,15 @@ public class GetMessageController {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserMessageCommand> getLastMessage() {
-        return getMessage.getMessages();
+    public List<UserMessageCommand> getAllMessages() {
+        return getMessage.getAllMessages();
+    }
+
+    @GET
+    @Path("/last")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserMessageCommand getLastMessage() {
+        return getMessage.getLastMessage();
     }
 
 }

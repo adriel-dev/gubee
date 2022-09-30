@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface Gateway {
 
-    public List<UserMessageCommand> getMessages();
+    public List<UserMessageCommand> getMessagesList();
+    public UserMessageCommand getLastMessage();
 
 }

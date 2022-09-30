@@ -15,8 +15,12 @@ public class GetMessageAdapter implements GetMessage {
     Gateway gateway;
 
     @Override
-    public List<UserMessageCommand> getMessages() {
-        return gateway.getMessages();
+    public List<UserMessageCommand> getAllMessages() {
+        return gateway.getMessagesList();
     }
 
+    @Override
+    public UserMessageCommand getLastMessage() {
+        return gateway.getLastMessage();
+    }
 }

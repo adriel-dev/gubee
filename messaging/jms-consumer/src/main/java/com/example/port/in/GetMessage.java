@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface GetMessage {
 
-    List<UserMessageCommand> getMessages();
+    List<UserMessageCommand> getAllMessages();
+    UserMessageCommand getLastMessage();
 
 }

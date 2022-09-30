@@ -29,10 +29,16 @@ public class ConsumerGateway implements Gateway, Runnable {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private List<UserMessageCommand> users = new ArrayList<>();
+    private UserMessageCommand lastUser;
 
     @Override
-    public List<UserMessageCommand> getMessages() {
+    public List<UserMessageCommand> getMessagesList() {
         return users;
+    }
+
+    @Override
+    public UserMessageCommand getLastMessage() {
+        return lastUser;
     }
 
     private void getMessagesFromQueue() {
@@ -41,12 +47,10 @@ public class ConsumerGateway implements Gateway, Runnable {
             while (true) {
                 Message message = consumer.receive();
                 if (message == null) return;
-                users.add(new ObjectMapper()
-                        .readValue(
-                        message.getBody(String.class),
-                        UserMessageCommand.class
-                        )
-                );
+                UserMessageCommand messageUser = new ObjectMapper()
+                        .readValue(message.getBody(String.class), UserMessageCommand.class);
+                users.add(messageUser);
+                lastUser = messageUser;
                 message.acknowledge();
             }
         } catch (JMSException | JsonProcessingException e) {
