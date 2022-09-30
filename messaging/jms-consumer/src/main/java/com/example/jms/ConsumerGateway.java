@@ -26,7 +26,7 @@ public class ConsumerGateway implements Gateway, Runnable {
     @Inject
     ConnectionFactory connectionFactory;
 
-    private final ExecutorService scheduler = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private List<UserMessageCommand> users = new ArrayList<>();
 
@@ -55,11 +55,11 @@ public class ConsumerGateway implements Gateway, Runnable {
     }
 
     void onStart(@Observes StartupEvent ev) {
-        scheduler.submit(this);
+        executor.submit(this);
     }
 
     void onStop(@Observes ShutdownEvent ev) {
-        scheduler.shutdown();
+        executor.shutdown();
     }
 
     @Override
