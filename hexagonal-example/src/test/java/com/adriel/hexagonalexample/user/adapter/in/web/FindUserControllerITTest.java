@@ -17,7 +17,7 @@ class FindUserControllerITTest {
     private FindUserController findUserController;
 
     @Test
-    void findUserByIdShouldThrowException() {
+    void findUserByIdShouldReturnNotFound() {
         //given
         Long id = 1L;
         //when
