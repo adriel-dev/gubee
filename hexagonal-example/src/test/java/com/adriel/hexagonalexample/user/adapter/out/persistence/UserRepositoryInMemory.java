@@ -9,19 +9,23 @@ public class UserRepositoryInMemory implements UserRepository {
     private final List<UserJpa> users = new ArrayList<>();
     private Long lastId = 0L;
 
+    public UserRepositoryInMemory() {
+        this.save(new UserJpa(null, "teste", "123"));
+    }
+
     /**
      * Add a new user to the list
      */
     @Override
     public UserJpa save(UserJpa user) {
         if (user.getId() != null)
-            users.add(user);
+            return this.update(user);
         else{
             lastId++;
             user.setId(lastId);
             users.add(user);
+            return user;
         }
-        return user;
     }
 
     @Override
@@ -37,9 +41,11 @@ public class UserRepositoryInMemory implements UserRepository {
     }
 
     @Override
-    public UserJpa update(UserJpa user) {
-
-        return user;
+    public UserJpa update(UserJpa userJpa) {
+        var result = users.stream().filter((user) -> user.getId().equals(userJpa.getId())).findFirst().get();
+        var index = users.indexOf(result);
+        users.set(index, userJpa);
+        return userJpa;
     }
 
     @Override

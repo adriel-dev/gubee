@@ -28,7 +28,6 @@ class UserPersistenceAdapterTest {
     @BeforeEach
     void setUp() {
         adapter = new UserPersistenceAdapter(userRepository);
-        adapter.registerUser(new RegisterUserCommand("teste","123"));
     }
 
     @Test

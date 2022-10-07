@@ -27,7 +27,6 @@ class FindUserControllerTest {
     void setUp() {
         var adapter = new UserPersistenceAdapter(new UserRepositoryInMemory());
         findUserController = new FindUserController(adapter);
-        adapter.registerUser(new RegisterUserCommand("teste","123"));
     }
 
     @Test

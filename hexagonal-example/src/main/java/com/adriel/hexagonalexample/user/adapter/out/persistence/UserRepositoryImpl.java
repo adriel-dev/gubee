@@ -1,6 +1,7 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
 import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -49,9 +50,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserJpa update(UserJpa user) {
-        var updatedUserId = jdbcTemplate.queryForObject("UPDATE myapp_user SET username=?, password=? WHERE id=? RETURNING id", Long.class,
-                user.getUsername(), user.getPassword(), user.getId());
-        return findById(updatedUserId).get();
+        try{
+            var updatedUserId = jdbcTemplate.queryForObject("UPDATE myapp_user SET username=?, password=? WHERE id=? RETURNING id", Long.class,
+                    user.getUsername(), user.getPassword(), user.getId());
+            return findById(updatedUserId).get();
+        } catch (EmptyResultDataAccessException e) {
+            throw new UserNotFoundException();
+        }
     }
 
 }
