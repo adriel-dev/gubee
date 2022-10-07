@@ -1,7 +1,5 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
-import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +37,9 @@ public class UserRepositoryInMemory implements UserRepository {
     }
 
     @Override
-    public void update(UserJpa user) {
+    public UserJpa update(UserJpa user) {
 
+        return user;
     }
 
     @Override

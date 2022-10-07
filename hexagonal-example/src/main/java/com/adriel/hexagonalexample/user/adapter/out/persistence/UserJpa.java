@@ -19,7 +19,7 @@ public class UserJpa {
     private String password;
 
     public User toUser(){
-        return new User(this.getUsername(), this.getPassword());
+        return new User(this.getId(), this.getUsername(), this.getPassword());
     }
 
 }

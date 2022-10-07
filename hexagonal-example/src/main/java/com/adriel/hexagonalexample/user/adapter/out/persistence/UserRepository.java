@@ -10,6 +10,6 @@ public interface UserRepository {
     Optional<UserJpa> findById(Long id);
     Optional<UserJpa> findUserByUsername(String username);
     void deleteById(Long id);
-    void update(UserJpa user);
+    UserJpa update(UserJpa user);
 
 }

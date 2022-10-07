@@ -68,7 +68,7 @@ class UserPersistenceAdapterTest {
     @Test
     void shouldDeleteUserById() {
         //given
-        Long id = 7L;
+        Long id = 1L;
         //when
         adapter.deleteUserById(id);
         //then

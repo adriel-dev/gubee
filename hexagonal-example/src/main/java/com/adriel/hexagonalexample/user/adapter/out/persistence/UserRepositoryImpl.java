@@ -17,12 +17,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserJpa save(UserJpa user) {
-        return jdbcTemplate.queryForObject("INSERT INTO MYAPP_USER(USERNAME, PASSWORD) VALUES(?, ?)", UserJpa.class, user.getUsername(), user.getPassword());
+        var savedUserId = jdbcTemplate.queryForObject("INSERT INTO myapp_user(username, password) VALUES(?, ?) RETURNING id", Long.class, user.getUsername(), user.getPassword());
+        return findById(savedUserId).get();
     }
 
     @Override
     public Optional<UserJpa> findById(Long id) {
-        var queryResult = jdbcTemplate.query("SELECT * FROM MYAPP_USER WHERE MYAPP_USER.ID = ?", (rs, rowNum) -> new UserJpa(
+        var queryResult = jdbcTemplate.query("SELECT * FROM myapp_user WHERE myapp_user.id = ?", (rs, rowNum) -> new UserJpa(
                 rs.getLong("id"),
                 rs.getString("username"),
                 rs.getString("password")
@@ -32,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<UserJpa> findUserByUsername(String username) {
-        var queryResult = jdbcTemplate.query("SELECT * FROM MYAPP_USER WHERE MYAPP_USER.USERNAME = ?", (rs, rowNum) -> new UserJpa(
+        var queryResult = jdbcTemplate.query("SELECT * FROM myapp_user WHERE myapp_user.username = ?", (rs, rowNum) -> new UserJpa(
                 rs.getLong("id"),
                 rs.getString("username"),
                 rs.getString("password")
@@ -42,15 +43,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteById(Long id) {
-        var rowsAffected = jdbcTemplate.update("DELETE FROM MYAPP_USER WHERE MYAPP_USER.ID = ?", id);
+        var rowsAffected = jdbcTemplate.update("DELETE FROM myapp_user WHERE myapp_user.id = ?", id);
         if(rowsAffected == 0) throw new UserNotFoundException();
     }
 
     @Override
-    public void update(UserJpa user) {
-        var rowsAffected = jdbcTemplate.update("UPDATE MYAPP_USER SET USERNAME=?, PASSWORD=? WHERE ID=?",
+    public UserJpa update(UserJpa user) {
+        var updatedUserId = jdbcTemplate.queryForObject("UPDATE myapp_user SET username=?, password=? WHERE id=? RETURNING id", Long.class,
                 user.getUsername(), user.getPassword(), user.getId());
-        if(rowsAffected == 0) throw new RuntimeException("Erro ao atualizar usuário!");
+        return findById(updatedUserId).get();
     }
 
 }

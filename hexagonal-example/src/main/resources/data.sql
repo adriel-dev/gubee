@@ -1,1 +1,0 @@
-INSERT INTO MYAPP_USER(username, password) VALUES('teste', '123');
