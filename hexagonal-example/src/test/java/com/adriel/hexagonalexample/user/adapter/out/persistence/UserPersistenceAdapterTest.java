@@ -20,23 +20,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class UserPersistenceAdapterTest {
 
-    @Mock
-    private UserRepository userRepository;
-    private AutoCloseable autoCloseable;
+    private final UserRepositoryInMemory userRepository = new UserRepositoryInMemory();
     private UserPersistenceAdapter adapter;
 
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
         adapter = new UserPersistenceAdapter(userRepository);
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        autoCloseable.close();
+        adapter.registerUser(new RegisterUserCommand("teste","123"));
     }
 
     @Test
@@ -45,15 +37,9 @@ class UserPersistenceAdapterTest {
         RegisterUserCommand userCommand = new RegisterUserCommand("teste", "123");
 
         //when
-        when(userRepository.save(any())).thenReturn(new UserJpa(
-                null,
-                userCommand.getUsername(),
-                userCommand.getPassword()
-        ));
         var response = adapter.registerUser(userCommand);
 
         //then
-        verify(userRepository, times(1)).save(any());
         assertThat(response).isNotNull();
         assertThat(response).isInstanceOf(User.class);
         assertThat(response.getUsername()).isEqualTo(userCommand.getUsername());
@@ -64,14 +50,8 @@ class UserPersistenceAdapterTest {
     void findUserByIdShouldReturnAnUser() {
         //given
         //when
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(new UserJpa(
-                1L,
-                "teste",
-                "123"
-        )));
         var response = adapter.findUserById(1L);
         //then
-        verify(userRepository, times(1)).findById(anyLong());
         assertThat(response).isNotNull();
         assertThat(response).isInstanceOf(User.class);
     }
@@ -88,35 +68,24 @@ class UserPersistenceAdapterTest {
     @Test
     void shouldDeleteUserById() {
         //given
+        Long id = 7L;
         //when
-        doNothing().when(userRepository).deleteById(anyLong());
-        adapter.deleteUserById(7L);
+        adapter.deleteUserById(id);
         //then
-        verify(userRepository, times(1)).deleteById(anyLong());
+        var res = userRepository.findById(id);
+        assertThat(res.isPresent()).isFalse();
     }
 
     @Test
     void shouldUpdateUserAndReturnUpdatedUser() {
         //given
-        Long id = 5L;
+        Long id = 1L;
         var userCommand = new RegisterUserCommand("teste update", "321");
 
         //when
-        when(userRepository.findById(id)).thenReturn(Optional.of(new UserJpa(
-                id,
-                "teste",
-                "123"
-        )));
-        when(userRepository.save(any())).thenReturn(new UserJpa(
-                id,
-                userCommand.getUsername(),
-                userCommand.getPassword()
-        ));
         var response = adapter.updateUser(id, userCommand);
 
         //then
-        verify(userRepository, times(1)).findById(anyLong());
-        verify(userRepository, times(1)).save(any());
         assertThat(response).isNotNull();
         assertThat(response).isInstanceOf(User.class);
         assertThat(response.getUsername()).isEqualTo(userCommand.getUsername());
