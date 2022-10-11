@@ -1,40 +1,58 @@
 package com.adriel.hexagonalexample.user.adapter.in.web;
 
 import com.adriel.hexagonalexample.user.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class FindUserControllerItTest {
 
     @Autowired
-    private FindUserController findUserController;
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @Test
-    void findUserByIdShouldReturnUser() {
+    void findUserByIdShouldReturnUser() throws Exception {
         //given
-        Long id = 1L;
+        long id = 5L;
         //when
-        var response = findUserController.findUserById(id);
-        //
-        assertThat(response).isNotNull();
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).isInstanceOf(User.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        var resultActions = mockMvc.perform(get("/api/users/"+id)
+                .accept(MediaType.APPLICATION_JSON));
+        //then
+        var mvcResult = resultActions
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+        var responseString = mvcResult.getResponse().getContentAsString();
+        var response = mapper.readValue(responseString, User.class);
+        assertThat(response.getId()).isEqualTo(id);
     }
 
     @Test
-    void findUserByIdShouldReturnNotFound() {
+    void findUserByIdShouldReturnNotFound() throws Exception {
         //given
-        Long id = 72L;
+        long id = 72L;
         //when
-        var response = findUserController.findUserById(id);
+        var resultActions = mockMvc.perform(get("/api/users/{id}", id));
         //then
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        var responseBody = resultActions.andExpect(status().isNotFound())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        assertThat(responseBody).isEmpty();
     }
 }

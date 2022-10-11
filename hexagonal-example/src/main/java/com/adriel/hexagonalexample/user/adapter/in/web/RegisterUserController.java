@@ -1,9 +1,11 @@
 package com.adriel.hexagonalexample.user.adapter.in.web;
 
+import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserAlreadyExistsException;
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUser;
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUserCommand;
 import com.adriel.hexagonalexample.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +23,13 @@ public class RegisterUserController {
 
     @PostMapping
     public ResponseEntity<User> registerUser(@RequestBody RegisterUserCommand userCommand){
-        User savedUser = registerUser.registerUser(userCommand);
-        return ResponseEntity.created(URI.create("/api/users/"+savedUser.getId()))
-                .body(savedUser);
+        try{
+            User savedUser = registerUser.registerUser(userCommand);
+            return ResponseEntity.created(URI.create("/api/users/"+savedUser.getId()))
+                    .body(savedUser);
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
 }

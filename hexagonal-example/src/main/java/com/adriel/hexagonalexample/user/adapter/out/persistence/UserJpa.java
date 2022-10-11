@@ -1,13 +1,11 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
 import com.adriel.hexagonalexample.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserJpa {

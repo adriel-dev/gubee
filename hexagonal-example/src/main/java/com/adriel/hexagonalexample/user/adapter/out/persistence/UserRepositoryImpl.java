@@ -1,6 +1,8 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
+import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserAlreadyExistsException;
 import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserNotFoundException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,8 +20,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserJpa save(UserJpa user) {
-        var savedUserId = jdbcTemplate.queryForObject("INSERT INTO myapp_user(username, password) VALUES(?, ?) RETURNING id", Long.class, user.getUsername(), user.getPassword());
-        return findById(savedUserId).get();
+        try{
+            var savedUserId = jdbcTemplate.queryForObject("INSERT INTO myapp_user(username, password) VALUES(?, ?) RETURNING id", Long.class, user.getUsername(), user.getPassword());
+            return findById(savedUserId).get();
+        } catch (DuplicateKeyException e) {
+            throw new UserAlreadyExistsException();
+        }
     }
 
     @Override

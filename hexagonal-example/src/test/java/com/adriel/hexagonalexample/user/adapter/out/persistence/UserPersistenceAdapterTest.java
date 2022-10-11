@@ -1,24 +1,16 @@
 package com.adriel.hexagonalexample.user.adapter.out.persistence;
 
+import com.adriel.hexagonalexample.user.adapter.out.persistence.stub.UserRepositoryInMemory;
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUserCommand;
 import com.adriel.hexagonalexample.user.domain.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
 
 class UserPersistenceAdapterTest {
 

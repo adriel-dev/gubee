@@ -1,43 +1,47 @@
 package com.adriel.hexagonalexample.user.adapter.in.web;
 
 import com.adriel.hexagonalexample.user.application.port.in.RegisterUserCommand;
-import com.adriel.hexagonalexample.user.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class UpdateUserControllerItTest {
 
     @Autowired
-    private UpdateUserController updateUserController;
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @Test
-    void shouldUpdateUserAndReturnUser() {
+    void shouldUpdateUserAndReturnUser() throws Exception {
         //given
-        Long id = 1L;
-        RegisterUserCommand userCommand = new RegisterUserCommand("update it test", "IU123");
+        long id = 5L;
+        var resquestBody = mapper.writeValueAsString(new RegisterUserCommand("update it test", "IU123"));
         //when
-        var response = updateUserController.updateUser(id, userCommand);
+        var resultActions = mockMvc.perform(put("/api/users/{id}", id).contentType(MediaType.APPLICATION_JSON).content(resquestBody));
         //then
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).isInstanceOf(User.class);
-        assertThat(response.getBody().getId()).isEqualTo(id);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        resultActions.andExpect(status().isOk()).andExpect(content().json(resquestBody));
     }
 
     @Test
-    void shouldUpdateUserAndThrowException() {
+    void shouldUpdateUserAndGetNotFound() throws Exception {
         //given
-        Long id = 99L;
-        RegisterUserCommand userCommand = new RegisterUserCommand("update it test", "IU123");
+        long id = 99L;
+        var resquestBody = mapper.writeValueAsString(new RegisterUserCommand("update it test", "IU123"));
         //when
-        var response = updateUserController.updateUser(id, userCommand);
+        var resultActions = mockMvc.perform(put("/api/users/{id}", id).contentType(MediaType.APPLICATION_JSON).content(resquestBody));
         //then
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        resultActions.andExpect(status().isNotFound());
     }
 }

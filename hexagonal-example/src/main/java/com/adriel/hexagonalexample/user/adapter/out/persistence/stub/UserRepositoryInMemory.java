@@ -1,4 +1,8 @@
-package com.adriel.hexagonalexample.user.adapter.out.persistence;
+package com.adriel.hexagonalexample.user.adapter.out.persistence.stub;
+
+import com.adriel.hexagonalexample.user.adapter.out.persistence.UserJpa;
+import com.adriel.hexagonalexample.user.adapter.out.persistence.UserRepository;
+import com.adriel.hexagonalexample.user.adapter.out.persistence.exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +46,12 @@ public class UserRepositoryInMemory implements UserRepository {
 
     @Override
     public UserJpa update(UserJpa userJpa) {
-        var result = users.stream().filter((user) -> user.getId().equals(userJpa.getId())).findFirst().get();
-        var index = users.indexOf(result);
-        users.set(index, userJpa);
+        users.stream().filter((user) -> user.equals(userJpa)).findFirst().ifPresentOrElse(value -> {
+            var index = users.indexOf(value);
+            users.set(index, userJpa);
+        }, () -> {
+            throw new UserNotFoundException();
+        });
         return userJpa;
     }
 

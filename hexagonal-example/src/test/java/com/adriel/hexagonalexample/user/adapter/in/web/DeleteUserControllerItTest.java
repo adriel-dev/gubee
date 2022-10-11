@@ -1,28 +1,37 @@
 package com.adriel.hexagonalexample.user.adapter.in.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class DeleteUserControllerItTest {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
     private DeleteUserController deleteUserController;
 
+    @Autowired
+    private ObjectMapper mapper;
+
     @Test
-    void deleteUser() {
+    void shouldDeleteUser() throws Exception {
         //given
-        Long id = 1L;
+        long id = 4L;
         //when
-        var response = deleteUserController.deleteUser(id);
+        var resultActions = mockMvc.perform(delete("/api/users/{id}", id));
         //then
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        resultActions.andExpect(status().isOk()).andDo(print());
     }
 
 }
