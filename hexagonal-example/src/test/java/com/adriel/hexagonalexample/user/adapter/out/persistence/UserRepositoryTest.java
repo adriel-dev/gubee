@@ -15,16 +15,14 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void findAUserByUsername() {
+    void findAnUserByUsername() {
 
         //given
         UserJpa user = new UserJpa(null, "teste", "123");
         userRepository.save(user);
 
-        String username = "teste";
-
         //when
-        var expected = userRepository.findUserByUsername(username);
+        var expected = userRepository.findUserByUsername(user.getUsername());
 
         //then
         assertThat(expected).isNotNull();

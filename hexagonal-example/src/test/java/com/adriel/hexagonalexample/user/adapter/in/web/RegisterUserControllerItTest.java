@@ -15,8 +15,7 @@ import java.util.Random;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -42,14 +41,10 @@ class RegisterUserControllerItTest {
         //then
         var responseString = resultActions.andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andDo(print())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        var response = mapper.readValue(responseString, User.class);
-        assertThat(response).isNotNull();
-        assertThat(response.getUsername()).isEqualTo(userCommand.getUsername());
-        assertThat(response.getPassword()).isEqualTo(userCommand.getPassword());
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.username").value(userCommand.getUsername()))
+                .andExpect(jsonPath("$.password").value(userCommand.getPassword()))
+                .andDo(print());
     }
 
     @Test
@@ -63,12 +58,9 @@ class RegisterUserControllerItTest {
                 .content(requestBody)
         );
         //then
-        var responseString = resultActions.andExpect(status().isConflict())
-                .andDo(print())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        assertThat(responseString).isEmpty();
+        resultActions.andExpect(status().isConflict())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 
 }

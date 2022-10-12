@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,11 +28,25 @@ class DeleteUserControllerItTest {
     @Test
     void shouldDeleteUser() throws Exception {
         //given
-        long id = 4L;
+        long id = 6L;
         //when
         var resultActions = mockMvc.perform(delete("/api/users/{id}", id));
         //then
-        resultActions.andExpect(status().isOk()).andDo(print());
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().string(""))
+                .andDo(print());
+    }
+
+    @Test
+    void shouldTryToDeleteAndGetNotFound() throws Exception {
+        //given
+        long id = 99L;
+        //when
+        var resultActions = mockMvc.perform(delete("/api/users/{id}", id));
+        //then
+        resultActions.andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 
 }

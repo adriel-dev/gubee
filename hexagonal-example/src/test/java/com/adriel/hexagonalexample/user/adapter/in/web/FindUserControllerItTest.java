@@ -1,6 +1,5 @@
 package com.adriel.hexagonalexample.user.adapter.in.web;
 
-import com.adriel.hexagonalexample.user.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,11 +32,10 @@ class FindUserControllerItTest {
         //then
         var mvcResult = resultActions
                 .andExpect(status().isOk())
-                .andDo(print())
-                .andReturn();
-        var responseString = mvcResult.getResponse().getContentAsString();
-        var response = mapper.readValue(responseString, User.class);
-        assertThat(response.getId()).isEqualTo(id);
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.username").isNotEmpty())
+                .andExpect(jsonPath("$.password").isNotEmpty())
+                .andDo(print());
     }
 
     @Test
@@ -48,11 +45,8 @@ class FindUserControllerItTest {
         //when
         var resultActions = mockMvc.perform(get("/api/users/{id}", id));
         //then
-        var responseBody = resultActions.andExpect(status().isNotFound())
-                .andDo(print())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        assertThat(responseBody).isEmpty();
+        resultActions.andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 }

@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,21 +27,32 @@ class UpdateUserControllerItTest {
     void shouldUpdateUserAndReturnUser() throws Exception {
         //given
         long id = 5L;
-        var resquestBody = mapper.writeValueAsString(new RegisterUserCommand("update it test", "IU123"));
+        var userCommand = new RegisterUserCommand("update it test", "IU123");
+        var resquestBody = mapper.writeValueAsString(userCommand);
         //when
-        var resultActions = mockMvc.perform(put("/api/users/{id}", id).contentType(MediaType.APPLICATION_JSON).content(resquestBody));
+        var resultActions = mockMvc.perform(put("/api/users/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(resquestBody));
         //then
-        resultActions.andExpect(status().isOk()).andExpect(content().json(resquestBody));
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.username").value(userCommand.getUsername()))
+                .andExpect(jsonPath("$.password").value(userCommand.getPassword()))
+                .andDo(print());
     }
 
     @Test
-    void shouldUpdateUserAndGetNotFound() throws Exception {
+    void shouldTryToUpdateUserAndGetNotFound() throws Exception {
         //given
         long id = 99L;
         var resquestBody = mapper.writeValueAsString(new RegisterUserCommand("update it test", "IU123"));
         //when
-        var resultActions = mockMvc.perform(put("/api/users/{id}", id).contentType(MediaType.APPLICATION_JSON).content(resquestBody));
+        var resultActions = mockMvc.perform(put("/api/users/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(resquestBody));
         //then
-        resultActions.andExpect(status().isNotFound());
+        resultActions.andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 }
