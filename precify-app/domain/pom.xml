@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.7.20</kotlin.version>
+        <src.dir>src/main/kotlin</src.dir>
     </properties>
 
     <dependencies>
@@ -76,6 +77,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <sourceDirectory>${src.dir}</sourceDirectory>
     </build>
 
 </project>
