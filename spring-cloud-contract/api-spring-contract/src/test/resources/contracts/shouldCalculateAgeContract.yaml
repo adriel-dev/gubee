@@ -1,0 +1,9 @@
+request:
+  method: GET
+  url: '/api/age/year/2000'
+
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body: {"age": 22}

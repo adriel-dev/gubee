@@ -1,0 +1,6 @@
+request:
+  method: GET
+  url: '/api/age/year/1726'
+
+response:
+  status: 400
