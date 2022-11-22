@@ -1,6 +1,6 @@
 package com.example.jms;
 
-import com.example.port.in.UserMessageCommand;
+import com.example.port.in.UserMessageDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.ShutdownEvent;
@@ -28,18 +28,18 @@ public class ConsumerGateway implements Gateway, Runnable {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private List<UserMessageCommand> users = new ArrayList<>();
-    private UserMessageCommand lastUser;
+    private List<UserMessageDTO> users = new ArrayList<>();
+    private UserMessageDTO lastUser;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public List<UserMessageCommand> getMessagesList() {
+    public List<UserMessageDTO> getMessagesList() {
         return users;
     }
 
     @Override
-    public UserMessageCommand getLastMessage() {
+    public UserMessageDTO getLastMessage() {
         return lastUser;
     }
 
@@ -49,8 +49,8 @@ public class ConsumerGateway implements Gateway, Runnable {
             while (true) {
                 Message message = consumer.receive();
                 if (message == null) return;
-                UserMessageCommand messageUser = mapper
-                        .readValue(message.getBody(String.class), UserMessageCommand.class);
+                UserMessageDTO messageUser = mapper
+                        .readValue(message.getBody(String.class), UserMessageDTO.class);
                 users.add(messageUser);
                 lastUser = messageUser;
                 message.acknowledge();

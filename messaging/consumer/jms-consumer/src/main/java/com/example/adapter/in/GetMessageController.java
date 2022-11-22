@@ -1,7 +1,7 @@
 package com.example.adapter.in;
 
 import com.example.port.in.GetMessage;
-import com.example.port.in.UserMessageCommand;
+import com.example.port.in.UserMessageDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -17,14 +17,14 @@ public class GetMessageController {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserMessageCommand> getAllMessages() {
+    public List<UserMessageDTO> getAllMessages() {
         return getMessage.getAllMessages();
     }
 
     @GET
     @Path("/last")
     @Produces(MediaType.APPLICATION_JSON)
-    public UserMessageCommand getLastMessage() {
+    public UserMessageDTO getLastMessage() {
         return getMessage.getLastMessage();
     }
 

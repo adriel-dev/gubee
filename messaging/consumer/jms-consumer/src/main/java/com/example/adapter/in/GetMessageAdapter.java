@@ -2,7 +2,7 @@ package com.example.adapter.in;
 
 import com.example.jms.Gateway;
 import com.example.port.in.GetMessage;
-import com.example.port.in.UserMessageCommand;
+import com.example.port.in.UserMessageDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,12 +15,12 @@ public class GetMessageAdapter implements GetMessage {
     Gateway gateway;
 
     @Override
-    public List<UserMessageCommand> getAllMessages() {
+    public List<UserMessageDTO> getAllMessages() {
         return gateway.getMessagesList();
     }
 
     @Override
-    public UserMessageCommand getLastMessage() {
+    public UserMessageDTO getLastMessage() {
         return gateway.getLastMessage();
     }
 }

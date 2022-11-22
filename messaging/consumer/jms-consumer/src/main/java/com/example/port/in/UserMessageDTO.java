@@ -1,14 +1,14 @@
 package com.example.port.in;
 
-public class UserMessageCommand {
+public class UserMessageDTO {
 
     private Integer id;
     private String username;
     private String password;
 
-    public UserMessageCommand() {}
+    public UserMessageDTO() {}
 
-    public UserMessageCommand(Integer id, String username, String password) {
+    public UserMessageDTO(Integer id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

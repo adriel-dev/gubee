@@ -1,6 +1,6 @@
 package com.example.user.domain;
 
-import com.example.user.port.out.UserMessageCommand;
+import com.example.user.port.out.UserMessageDTO;
 
 public class User {
 
@@ -36,8 +36,8 @@ public class User {
         this.password = password;
     }
 
-    public UserMessageCommand toCommand() {
-        return new UserMessageCommand(this.getId(), this.getUsername(), this.getPassword());
+    public UserMessageDTO toUserMessageDTO() {
+        return new UserMessageDTO(this.getId(), this.getUsername(), this.getPassword());
     }
 
 }
